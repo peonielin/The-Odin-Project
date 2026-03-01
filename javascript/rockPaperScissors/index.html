@@ -6,9 +6,40 @@
     <title>Document</title>
   </head>
   <body>
+    <button>Rock</button>
+    <button>Paper</button>
+    <button>Scissors</button>
+    <div id="container"></div>
+
     <script>
-      let humanScore = 0;
-      let computerScore = 0;
+      const results = document.querySelector("#container");
+
+      const buttons = document.querySelectorAll("button");
+
+      function onClick(event) {
+        const humanSelection = event.target.textContent;
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection, results);
+        if (humanScore == 5) {
+          const outcome = document.createElement("p");
+          outcome.textContent = "You beat the computer";
+          results.appendChild(outcome);
+          buttons.forEach((button) => {
+            button.disabled = true;
+          });
+        } else if (computerScore == 5) {
+          const outcome = document.createElement("p");
+          outcome.textContent = "You lost to the computer";
+          results.appendChild(outcome);
+          buttons.forEach((button) => {
+            button.disabled = true;
+          });
+        }
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", onClick);
+      });
 
       function getComputerChoice() {
         let choice = Math.floor(Math.random() * 3);
@@ -21,54 +52,66 @@
           return "scissors";
         }
       }
+      let humanScore = 0;
+      let computerScore = 0;
 
-      function getHumanChoice() {
-        let choice = prompt("What's your choice?");
-        return choice;
-      }
-
-      function playGame() {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-      }
-
-      function playRound(human, computer) {
+      function playRound(human, computer, results) {
+        const result = document.createElement("p");
         human = human.toLowerCase();
         if (human == computer) {
-          console.log("tie i guess");
+          result.textContent =
+            "tie i guess " + " Score is " + humanScore + " to " + computerScore;
         } else if (human == "rock" && computer == "paper") {
           computerScore++;
-          console.log("You lose! Paper beats Rock");
+          result.textContent =
+            "You lose! Paper beats Rock" +
+            " Score is " +
+            humanScore +
+            " to " +
+            computerScore;
         } else if (human == "rock" && computer == "scissors") {
           humanScore++;
-          console.log("You win! Rock beats Scissors");
+          result.textContent =
+            "You win! Rock beats Scissors" +
+            " Score is " +
+            humanScore +
+            " to " +
+            computerScore;
         } else if (human == "paper" && computer == "rock") {
           humanScore++;
-          console.log("You win! Paper beats Rock");
+          result.textContent =
+            "You win! Paper beats Rock" +
+            " Score is " +
+            humanScore +
+            " to " +
+            computerScore;
         } else if (human == "paper" && computer == "scissors") {
-          console.log("You lose! Scissors beats Paper");
+          result.textContent =
+            "You lose! Scissors beats Paper" +
+            " Score is " +
+            humanScore +
+            " to " +
+            computerScore;
           computerScore++;
         } else if (human == "scissors" && computer == "rock") {
-          console.log("You lose! Rock beats Scissors");
+          result.textContent =
+            "You lose! Rock beats Scissors " +
+            " Score is " +
+            humanScore +
+            " to " +
+            computerScore;
           computerScore++;
         } else if (human == "scissors" && computer == "paper") {
           humanScore++;
-          console.log("You win! Scissors beats paper");
+          result.textContent =
+            "You lose! Rock beats Scissors" +
+            " Score is " +
+            humanScore +
+            " to" +
+            computerScore;
         }
+        results.appendChild(result);
         return;
-      }
-
-      for (let i = 0; i < 5; i++) {
-        playGame();
-      }
-
-      if (humanScore > computerScore) {
-        console.log("you win! & beat the computer");
-      } else if (humanScore < computerScore) {
-        console.log("you lose that's an L");
-      } else {
-        console.log("It's a tie overall!");
       }
     </script>
   </body>
