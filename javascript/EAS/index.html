@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <button class="button">Change the grid</button>
+  <div id="grid"></div>
+  <body>
+    <script>
+      const button = document.querySelector("button");
+      const grid = document.querySelector("#grid");
+
+      for (let i = 0; i < 256; i++) {
+        const cell = document.createElement("div");
+        cell.addEventListener("mouseenter", () => {
+          cell.style.backgroundColor = "black";
+        });
+        grid.appendChild(cell);
+      }
+      const gridSize = 960;
+      function onClick(event) {
+        let gridSide = prompt("Please enter number of squares per side");
+        gridSide = Number(gridSide);
+        if (gridSide <= 100) {
+          const totalNumGrid = gridSide ** 2;
+          const cellSize = gridSize / gridSide;
+
+          const oldGrid = document.querySelector("#grid");
+          if (oldGrid) oldGrid.remove();
+
+          const newGrid = document.createElement("div");
+          newGrid.id = "grid";
+          document.body.appendChild(newGrid);
+
+          for (let i = 0; i < totalNumGrid; i++) {
+            const cell = document.createElement("div");
+            cell.style.width = cellSize + "px";
+            cell.style.height = cellSize + "px";
+            cell.addEventListener("mouseenter", () => {
+              cell.style.backgroundColor = "black";
+            });
+            newGrid.appendChild(cell);
+          }
+        } else return;
+      }
+
+      button.addEventListener("click", onClick);
+    </script>
+  </body>
+</html>
