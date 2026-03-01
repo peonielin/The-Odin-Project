@@ -14,4 +14,4 @@ flex: flexbox exercises
 
 landing-page:landing page project
 
-javascript: includes calculator & rock paper scissors game
+javascript: includes calculator, rock paper scissors game and etch and sketch
