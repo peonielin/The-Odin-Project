@@ -14,7 +14,7 @@ h1{
 .credit{
     position: absolute;
     display: flex;
-    bottom: 0;
+    bottom: 30px;
     color: whitesmoke;
     gap: 3px;
 
@@ -40,7 +40,7 @@ h1{
 .background-container{
     display: flex;
     justify-content: center;
-        position: relative; /* add this */
+    position: relative;
 }
 
 .background-container.img{
