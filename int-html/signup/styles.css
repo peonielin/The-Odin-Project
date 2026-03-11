@@ -1,0 +1,161 @@
+*{
+margin: 0;
+padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    font-family:'Karla';
+}
+.container{
+    display: flex;
+}
+
+.credit{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    color: whitesmoke;
+    gap: 3px;
+
+}
+
+.overlay-background{
+    background-color:rgba(0, 0, 0, 0.4);
+    position: absolute;
+    height: auto;
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+    color: whitesmoke;
+    top: 300px;
+     box-sizing: border-box;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 10px;
+}
+
+.background-container{
+    display: flex;
+    justify-content: center;
+        position: relative; /* add this */
+}
+
+.background-container.img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.content{
+    background-color: #f9fafb;
+
+}
+
+.header{
+    padding: 90px 40px 30px 50px;
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    font-weight: 700;
+    gap: 20px;
+}
+
+.button{
+    border-radius: 7px; /* Rounds all four corners with the same radius */
+    background-color: #596D48; /* Example background color */
+    width: 300px; /* Example width */
+    height: 50px; /* Example height */
+    padding: 4px;
+    color: whitesmoke;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    }
+
+.login-text{
+    display: flex;
+    margin-left: 50px;
+    gap: 3px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.colored-p{
+    color: #596D48;
+    font-weight: 700;
+
+}
+
+a, a:visited {
+  color: whitesmoke;
+}
+
+.input-form{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    box-shadow: 5px 5px 5px #aaaaaa;
+    padding-top: 30px;
+    padding-bottom: 50px;
+
+}
+
+.input-container{
+    display: flex;
+    margin: 50px;
+    gap: 120px;
+}
+
+.input-form-header{
+    font-weight: 700;
+    margin-left: 50px;
+    font-size: 2em;
+        width: 300px;
+}
+
+.input-individual{
+    display: flex;
+    flex-direction: column;
+    flex: 50%;
+    font-size: 1em;
+
+}
+
+input:focus{
+    outline: 1px solid lightblue;
+    box-shadow: 5px 5px 5px #aaaaaa;
+}
+
+input:invalid{
+    outline: 1px solid red;
+}
+
+
+input{
+    width: 300px;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid #E5E7EB;
+    height: 25px;
+}
+
+.input-left,.input-right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rice{
+    height: 50px;
+    width: 50px;
+    color: white;
+}
