@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../library/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header"><h1>Library</h1></div>
+    <div class="cards-container"></div>
+
+    <button class="addnewbook">new book</button>
+
+    <dialog id="my-dialog">
+      <h2>Add a new book</h2>
+      <form class="form">
+        <label for="Book">Book Name</label>
+        <input type="text" id="Book" name="Book" />
+        <br />
+        <label for="Author">Author Name</label>
+        <input type="text" id="Author" name="Author" />
+        <br />
+        <label for="Pages">Number of Pages</label>
+        <input type="number" id="Pages" name="Pages" />
+        <br />
+        <label for="Status">Read Status</label>
+        <input type="radio" id="StatusRead" name="Status" />
+        <label for="StatusRead">Read</label>
+        <input type="radio" id="StatusNotRead" name="Status" />
+        <label for="StatusNotRead">Not Read</label>
+      </form>
+      <button id="close-dialog-button">Close</button>
+      <button id="addbutton">Add</button>
+    </dialog>
+
+    <script src="../library/script.js"></script>
+  </body>
+</html>
