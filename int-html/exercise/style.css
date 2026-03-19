@@ -59,7 +59,7 @@ html {
 .footer {
   background-color: #393f4d;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
   grid-row-start: 4;
   grid-row-end: 4;
 }

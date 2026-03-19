@@ -1,14 +1,16 @@
 const myLibrary = [];
 
-function Book(title, author, pages, readFlag) {
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  if (readFlag == true) {
-    this.readFlag = "Read";
-  } else {
-    this.readFlag = "Not read";
+class Book {
+  constructor(title, author, pages, readFlag) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    if (readFlag == true) {
+      this.readFlag = "Read";
+    } else {
+      this.readFlag = "Not read";
+    }
   }
 }
 
