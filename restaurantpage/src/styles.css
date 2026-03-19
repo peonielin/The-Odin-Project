@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+  --handwritten: 'Swanky and Moo Moo', cursive;
+  --cursive:'Cormorant Garamond', sans-serif;
+  --body:'DM Sans', sans-serif;
+}
+
+h1 {
+  font-family: var(--cursive);
+  font-style: italic;
+    padding: 0.5em;
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+}
+
+.menu-icons{
+    display: flex;
+    gap: 1em;
+    padding: 2em;
+}
+
+.handwritten,.icon{
+    padding: 0.1em;
+    font-family: var(--handwritten);
+}
+
+.body-text,.footer-details{
+    font-family: var(--body);
+}
+
+.footer-details {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.footer-detail-item {
+    font-family: var(--body);
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
