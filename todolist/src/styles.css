@@ -1,0 +1,265 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+  --handwritten: 'Gochi Hand';
+  --primary-color: #4e342E;
+  --secondary-color: #fBC02d;
+  --tertiary-color: #5d4037;
+  --neutral-color: #f5f2e7;
+
+}
+
+.container{
+    display: flex;
+    height: 100vh;
+}
+
+.headline{
+    font-family: 'Newsreader';
+    font-style: italic;
+    font-size: 25px;
+    color: var(--primary-color);
+}
+
+.label{
+    font-family: 'Work Sans';
+    color: var(--primary-color);
+}
+
+.task{
+    width: 200px;
+    height: 200px;
+    background-color: var(--secondary-color);
+}
+
+
+.divider{
+    background-color: var(--tertiary-color);
+    width: 10px;
+}
+
+.corkboard-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    border-color: var(--primary-color);
+    border-width: 13px 25px;
+    border-style: solid;
+    padding: 50px;
+    flex: 1;
+    box-sizing: border-box;
+    align-content: flex-start;
+    overflow-y: auto;
+    background-color: #c8a07a;
+    background-image: radial-gradient(circle, rgba(138, 92, 56, 0.4) 0.5px, transparent 2px);
+    background-size: 10px 10px;
+}
+
+.navbar{
+    padding-right: 50px;
+    padding-left: 25px;
+    padding-top: 20px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+    background-color: var(--neutral-color);
+}
+
+.addTaskNote{
+    width: 300px;
+    height: 300px;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.addEmptyTaskNote{
+    width: 300px;
+    height: 300px;
+    font-family: var(--handwritten);
+    background-color: rgba(245, 242, 231, 0.644);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    position: relative;
+}
+
+.task-description {
+    font-family: var(--handwritten);
+    font-size: 24px;
+    text-align: left;
+    position: absolute;
+    top: 65px;
+    left: 40px;
+    right: 40px;
+    width: calc(100% - 80px);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.task-title {
+    font-family: 'Work Sans';
+    text-align: left;
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    width: calc(100% - 80px);
+}
+
+.task-bottom-row {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-date {
+    font-family: 'Work Sans';
+    font-size: 14px;
+}
+
+.task-priority {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.exclaim-icon {
+    height: 65px;
+    width: auto;
+    margin-left: -12px;
+}
+
+.exclaim-icon:first-child {
+    margin-left: 0;
+}
+
+.corkboard-bin {
+    width: 100px;
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.pin{
+    width: 60px;
+    position: absolute;
+    top: -35px;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  backdrop-filter: blur(4px);
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: var(--secondary-color);
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid var(--secondary-color);
+  width: 50vmin;
+  height: 50vmin;
+  position: relative;
+}
+
+.modal-pin {
+  width: 100px;
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* The Close Button */
+.close {
+  color: var(--primary-color);
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.modal-form label{
+    font-family: 'Work Sans';
+    color: var(--primary-color);
+}
+
+.modal-form input,
+.modal-form select {
+  height: 30px;
+  box-sizing: border-box;
+  outline: 1px solid rgba(93, 64, 55, 0.3);
+  padding: 2px;
+  background-color: transparent;
+  font-family: 'Work Sans';
+}
+
+.modal-description {
+  height: 80px;
+  resize: none;
+  outline: 1px solid rgba(93, 64, 55, 0.3);
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.modal-submit {
+    background-color: var(--tertiary-color);
+    width: fit-content;
+    border-radius: 10px;
+    padding:3px 25px 3px 40px;
+    font-family: 'Work Sans';
+    font-weight: 400;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: center;
+}
+
+.submit-pin {
+    width: 30px;
+    filter: brightness(0) invert(1);
+}
