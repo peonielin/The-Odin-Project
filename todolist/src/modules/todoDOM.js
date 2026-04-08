@@ -1,10 +1,20 @@
-import { createTodo, updateTodo, getTodos, clearTodos, deleteTodo, getProjects, setProjectColor, getProjectColor } from "./todoLogic.js";
+import {
+  createTodo,
+  updateTodo,
+  getTodos,
+  clearTodos,
+  deleteTodo,
+  getProjects,
+  setProjectColor,
+  getProjectColor,
+} from "./todoLogic.js";
 import pinImg from "../../assets/pin.png";
 import closedBinImg from "../../assets/closedbin.png";
 import openBinImg from "../../assets/openbin.png";
 import exclaimImg from "../../assets/exclaim.png";
 
 let activeProjectFilter = null;
+let activeSearchQuery = "";
 
 function createPin() {
   const pin = document.createElement("img");
@@ -13,7 +23,11 @@ function createPin() {
   return pin;
 }
 
-function createModalForm(modalContent, onClose, { initial = {}, titleText = "Add Your Task", onSave } = {}) {
+function createModalForm(
+  modalContent,
+  onClose,
+  { initial = {}, titleText = "Add Your Task", onSave } = {},
+) {
   const form = document.createElement("form");
   form.classList.add("modal-form");
 
@@ -68,7 +82,13 @@ function createModalForm(modalContent, onClose, { initial = {}, titleText = "Add
   submitButton.appendChild(submitPin);
 
   submitButton.addEventListener("click", () => {
-    onSave(titleInput.value, descInput.value, dueDateInput.value, prioritySelect.value, projectInput.value);
+    onSave(
+      titleInput.value,
+      descInput.value,
+      dueDateInput.value,
+      prioritySelect.value,
+      projectInput.value,
+    );
     onClose();
     renderTask();
   });
@@ -123,11 +143,21 @@ function createModal(board, todo = null, todoIndex = null) {
 
   const isEdit = todo !== null;
   createModalForm(modalContent, closeModal, {
-    initial: isEdit ? { title: todo.title, description: todo.description, dueDate: todo.dueDate, priority: todo.priority, project: todo.project } : {},
+    initial: isEdit
+      ? {
+          title: todo.title,
+          description: todo.description,
+          dueDate: todo.dueDate,
+          priority: todo.priority,
+          project: todo.project,
+        }
+      : {},
     titleText: isEdit ? "Edit Your Task" : "Add Your Task",
     onSave: isEdit
-      ? (title, desc, dueDate, priority, project) => updateTodo(todoIndex, title, desc, dueDate, priority, project)
-      : (title, desc, dueDate, priority, project) => createTodo(title, desc, dueDate, priority, project),
+      ? (title, desc, dueDate, priority, project) =>
+          updateTodo(todoIndex, title, desc, dueDate, priority, project)
+      : (title, desc, dueDate, priority, project) =>
+          createTodo(title, desc, dueDate, priority, project),
   });
 
   modal.appendChild(modalContent);
@@ -135,9 +165,7 @@ function createModal(board, todo = null, todoIndex = null) {
   return { modal, closeModal };
 }
 
-const SWATCH_COLORS = [
-  "#f5aecf", "#fff7ab", "#ade1f7", "#c4eda8", "#f5c2ab",
-];
+const SWATCH_COLORS = ["#f5aecf", "#fff7ab", "#ade1f7", "#c4eda8", "#f5c2ab"];
 
 function updateProjectList(accordion) {
   accordion.innerHTML = "";
@@ -181,7 +209,8 @@ function updateProjectList(accordion) {
       swatch.style.setProperty("--tx", `${tx}px`);
       swatch.style.setProperty("--ty", `${ty}px`);
       swatch.style.transitionDelay = `${i * 25}ms`;
-      if (currentColor === color) swatch.classList.add("project-swatch--active");
+      if (currentColor === color)
+        swatch.classList.add("project-swatch--active");
       swatch.addEventListener("click", (e) => {
         e.stopPropagation();
         setProjectColor(project, color);
@@ -202,7 +231,8 @@ function updateProjectList(accordion) {
     row.appendChild(colorWrapper);
     item.appendChild(row);
 
-    if (project === activeProjectFilter) item.classList.add("project-item--active");
+    if (project === activeProjectFilter)
+      item.classList.add("project-item--active");
     accordion.appendChild(item);
   });
 }
@@ -220,6 +250,12 @@ export function initNavbar() {
   accordion.classList.add("project-accordion");
   navbar.appendChild(accordion);
 
+  const searchInput = document.querySelector(".search-bar");
+  searchInput.addEventListener("input", (e) => {
+    activeSearchQuery = e.target.value;
+    renderTask();
+  });
+
   label.style.cursor = "pointer";
   label.addEventListener("click", () => {
     const isOpen = accordion.classList.toggle("open");
@@ -235,9 +271,19 @@ export function renderTask() {
 
   const today = new Date().toISOString().slice(0, 10);
 
-  const todos = activeProjectFilter
+  let todos = activeProjectFilter
     ? getTodos().filter((t) => t.project === activeProjectFilter)
     : getTodos();
+
+  if (activeSearchQuery) {
+    const q = activeSearchQuery.toLowerCase();
+    todos = todos.filter(
+      (t) =>
+        t.title.toLowerCase().includes(q) ||
+        t.description.toLowerCase().includes(q) ||
+        t.project.toLowerCase().includes(q),
+    );
+  }
 
   todos.forEach((todo) => {
     const taskNote = document.createElement("div");
@@ -257,7 +303,12 @@ export function renderTask() {
       let placeholder = null;
 
       const onMove = (ev) => {
-        if (!dragging && Math.abs(ev.clientX - startX) < 5 && Math.abs(ev.clientY - startY) < 5) return;
+        if (
+          !dragging &&
+          Math.abs(ev.clientX - startX) < 5 &&
+          Math.abs(ev.clientY - startY) < 5
+        )
+          return;
         if (!dragging) {
           dragging = true;
           placeholder = document.createElement("div");
@@ -273,12 +324,16 @@ export function renderTask() {
           taskNote.style.transformOrigin = "center center";
           taskNote.style.pointerEvents = "none";
         }
-        taskNote.style.left = (ev.clientX - rect.width / 2) + "px";
-        taskNote.style.top = (ev.clientY - rect.height / 2) + "px";
+        taskNote.style.left = ev.clientX - rect.width / 2 + "px";
+        taskNote.style.top = ev.clientY - rect.height / 2 + "px";
         const bin = document.querySelector(".corkboard-bin");
         if (bin) {
           const b = bin.getBoundingClientRect();
-          const over = ev.clientX >= b.left && ev.clientX <= b.right && ev.clientY >= b.top && ev.clientY <= b.bottom;
+          const over =
+            ev.clientX >= b.left &&
+            ev.clientX <= b.right &&
+            ev.clientY >= b.top &&
+            ev.clientY <= b.bottom;
           bin.src = over ? openBinImg : closedBinImg;
           taskNote.style.opacity = over ? "0.5" : "1";
         }
@@ -298,7 +353,11 @@ export function renderTask() {
         const bin = document.querySelector(".corkboard-bin");
         if (bin) {
           const b = bin.getBoundingClientRect();
-          const dropped = ev.clientX >= b.left && ev.clientX <= b.right && ev.clientY >= b.top && ev.clientY <= b.bottom;
+          const dropped =
+            ev.clientX >= b.left &&
+            ev.clientX <= b.right &&
+            ev.clientY >= b.top &&
+            ev.clientY <= b.bottom;
           if (dropped) {
             taskNote.remove();
             deleteTodo(todoIndex);
@@ -390,8 +449,12 @@ export function renderTask() {
   bin.src = closedBinImg;
   bin.classList.add("corkboard-bin");
   board.appendChild(bin);
-  bin.addEventListener("mouseenter", () => { bin.src = openBinImg; });
-  bin.addEventListener("mouseleave", () => { bin.src = closedBinImg; });
+  bin.addEventListener("mouseenter", () => {
+    bin.src = openBinImg;
+  });
+  bin.addEventListener("mouseleave", () => {
+    bin.src = closedBinImg;
+  });
   bin.addEventListener("click", () => {
     clearTodos();
     renderTask();
